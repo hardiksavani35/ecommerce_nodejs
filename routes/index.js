@@ -1,9 +1,13 @@
 const express = require('express');
 const route   = express.Router();
+const categoryService = require('../services/categoryService');
 
 route.get('/', (req, res) => {
-    res.render('home')
-})
+    res.render('home', { 
+        title: 'Home',
+        categories: categoryService.getAllCategories(),
+    });
+});
 
 route.get('/products', (req, res) => {
     res.render('products')
