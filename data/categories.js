@@ -1,21 +1,19 @@
 const categories = [{
         id: 1,
-        name: 'Electronics',
-        description: 'Latest gadgets and tech',
-        gradient: 'from-pink-400 to-red-400',
-        icon: '📱'
+        name: 'Electronics', 
+        image: 'https://images.unsplash.com/photo-1498049794561-7780e7231661?w=400'
     }, {
         id: 2,
-        name: 'Fashion',
-        description: 'Trendy clothing & accessories',
-        gradient: 'from-green-400 to-blue-400',
-        icon: '👔'
+        name: 'Fashion', 
+        image: 'https://images.unsplash.com/photo-1445205170230-053b83016050?w=400'
     }, {
         id: 3,
-        name: 'Home & Living',
-        description: 'Beautiful home essentials',
-        gradient: 'from-yellow-400 to-orange-400',
-        icon: '🏠'
+        name: 'Home & Living', 
+        image: 'https://images.unsplash.com/photo-1484101403633-562f891dc89a?w=400'
+    }, {
+        id: 4,
+        name: 'Sport', 
+        image: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=400'
     }
 ]
 
