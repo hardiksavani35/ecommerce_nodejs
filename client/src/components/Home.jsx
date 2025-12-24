@@ -1,8 +1,27 @@
+import React, { useState, useEffect } from 'react';
 import HeroImage from '../assets/hero.jpg';
-import CategoryBox from './CategoryBox';
-import Category from './CategoryBox';
+import CategoryBox from './CategoryBox'; 
 
-export default function Home() {
+export default function Home() { 
+    const [categories, setCategories] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => { 
+        const fetchCategories = async () => {
+            try {
+                const response = await fetch('http://localhost:3300/api/categories');
+                const data = await response.json(); 
+                setCategories(data);
+                setLoading(false);
+            } catch (error) {
+                console.error('Error fetching categories:', error);
+                setLoading(false);
+            }
+        };
+
+        fetchCategories();
+    }, []);
+
     return (
         <>
         <section className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-20">
@@ -30,7 +49,15 @@ export default function Home() {
                     <p className="text-gray-600">Browse our wide selection of products</p>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                     <CategoryBox></CategoryBox>
+                    {loading ? (
+                        <p className="text-gray-600 py-12 text-center">
+                            Loading categories...
+                        </p>
+                        ) : (
+                        categories.map(category => (
+                            <CategoryBox key={category.id} category={category} />
+                        ))
+                    )}
                 </div>
             </div>
         </section>
