@@ -1,13 +1,14 @@
 const products = require('../data/products');
 
 class ProductService {
-    getAllProducts() {
-        return products;
+    getAllProducts(type) {
+        if(type == 'featured') {
+            return products.filter(product => product.featured == true).slice(0, 4)
+        } else {
+            return products;
+        }        
     }
-
-    getFeaturedProducts() {
-        return products.filter(product => product.featured == true).slice(0, 4)
-    }
+ 
 }
 
 module.exports = new ProductService();
