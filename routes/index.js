@@ -1,15 +1,37 @@
 const express = require('express');
 const route   = express.Router();
-const categoryService = require('../services/categoryService');
-const productService = require('../services/productService');
+const dbconn  = require('../util/database');
 
-route.get('/categories', (req, res) => {
-    res.json(categoryService.getAllCategories());
+route.get('/categories', async (req, res) => {
+    try {
+        const [rows] = await dbconn.execute('SELECT * FROM categories WHERE status = ?', ['active']);
+
+        return res.json({
+            success: true,
+            data: rows
+        });
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            message: 'Failed to retrieve categories.'
+        });
+    }
 });
 
-route.get('/products', (req, res) => { 
-    const { type } = req.query;
-    res.json(productService.getAllProducts(type));
+route.get('/products', async (req, res) => {
+    try {
+        const [rows] = await dbconn.execute('SELECT * FROM products WHERE status = ?', ['active']);
+
+        return res.json({
+            success: true,
+            data: rows
+        });
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            message: 'Failed to retrieve products.'
+        });
+    }
 });
 
 module.exports = route;
