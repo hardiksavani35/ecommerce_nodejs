@@ -3,7 +3,7 @@ import ProductItem from "./ProductItem";
 
 export default function Product({title, subtitle, type = "general"}) {
     const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true); 
 
     useEffect(() => { 
         const fetchProducts = async () => {
@@ -11,16 +11,22 @@ export default function Product({title, subtitle, type = "general"}) {
                 const url = `http://localhost:3300/api/products?type=${type}`;
                 const response = await fetch(url);
                 const data = await response.json(); 
-                setProducts(data);
+              
+                if (!data.success) {
+                    setLoading(false);
+                    return;
+                } 
+                setProducts(data.data || []);
                 setLoading(false);
-            } catch (error) {
-                console.error('Error fetching categories:', error);
+            } catch (error) { 
+                console.error("Failed to fetch products:", error);
+                setProducts([]);
                 setLoading(false);
             }
         };
 
         fetchProducts();
-    }, []);
+    }, [type]);
 
     return (
         <section className="py-16 bg-white">
@@ -32,9 +38,9 @@ export default function Product({title, subtitle, type = "general"}) {
     
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">                     
                     {loading ? (
-                        <p>Loading products...</p>
+                        <div className="col-span-full text-center">Loading products...</div>
                     ) : products.length === 0 ? (
-                        <p>No products found.</p>
+                        <div className="col-span-full text-center">No products found.</div>
                     ) : (
                         products.map(product => <ProductItem key={product.id} product={product} />)
                     )}

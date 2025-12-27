@@ -6,16 +6,23 @@ import Product from './Product';
 export default function Home() { 
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => { 
         const fetchCategories = async () => {
             try {
                 const response = await fetch('http://localhost:3300/api/categories');
                 const data = await response.json(); 
-                setCategories(data);
+              
+                if (!data.success) { 
+                    setError(data.message || 'Something went wrong');
+                    setLoading(false);
+                    return;
+                } 
+                setCategories(data.data || []);
                 setLoading(false);
             } catch (error) {
-                console.error('Error fetching categories:', error);
+                setError(error.message || 'Network error');
                 setLoading(false);
             }
         };
@@ -50,15 +57,26 @@ export default function Home() {
                     <p className="text-gray-600">Browse our wide selection of products</p>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                    {loading ? (
-                        <p className="text-gray-600 py-12 text-center">
+                    {loading && (
+                        <p className="text-gray-600 py-12 text-center col-span-full">
                             Loading categories...
                         </p>
-                        ) : (
+                    )}
+                    {!loading && error && (
+                        <p className="text-red-600 py-12 text-center col-span-full">
+                            {error}
+                        </p>
+                    )}
+                    {!loading && !error && (!categories || categories.length === 0) && (
+                        <p className="text-gray-500 py-12 text-center col-span-full">
+                            No categories found.
+                        </p>
+                    )}
+                    {!loading && !error && categories?.length > 0 &&
                         categories.map(category => (
                             <CategoryBox key={category.id} category={category} />
                         ))
-                    )}
+                    }
                 </div>
             </div>
         </section>
