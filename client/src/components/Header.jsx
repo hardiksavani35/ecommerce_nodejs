@@ -1,4 +1,8 @@
+import { useContext } from "react"
+import { CartContext } from "../store/CartContext"
+
 export default function Header() {
+    const { cart } = useContext(CartContext);
     return (<header className="bg-white shadow-md sticky top-0 z-50"> 
         <div className="bg-gray-900 text-white text-sm">
             <div className="container mx-auto px-4 py-2 flex justify-between items-center">
@@ -32,7 +36,7 @@ export default function Header() {
                     </button>
                     <button className="relative">
                         <i className="fas fa-shopping-cart text-gray-600 text-xl"></i>
-                        <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">3</span>
+                        <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">{cart.length}</span>
                     </button>
                     <button className="hidden md:block bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700">
                         <i className="fas fa-user mr-2"></i>Login

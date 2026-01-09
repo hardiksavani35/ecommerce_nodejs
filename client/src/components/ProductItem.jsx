@@ -1,6 +1,10 @@
-import {formatPrice} from '../utils/Price'
+import { useState, useContext } from 'react';
+import {formatPrice} from '../utils/Price' 
+import { CartContext } from '../store/CartContext';
 
 export default function ProductItem({product}) {
+    const { addToCart } = useContext(CartContext);
+    const [isAdding, setIsAdding] = useState(false);
     const hasDiscount = !!product.originalPrice
 
     return (
@@ -33,8 +37,12 @@ export default function ProductItem({product}) {
                         <span className="text-2xl font-bold text-gray-800">{formatPrice(product.price)}</span>
                         {hasDiscount && ( <span className="text-gray-400 line-through ml-2"> {formatPrice(product.originalPrice)} </span> )}
                     </div>
-                    <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
-                        <i className="fas fa-shopping-cart"></i>
+                    <button 
+                        onClick={() => addToCart(product)}
+                        disabled={isAdding}
+                        className={`px-4 py-2 rounded-lg transition-colors 
+                        ${ isAdding ? 'bg-green-600 text-white' : 'bg-blue-600 text-white hover:bg-blue-700' }`}>
+                        <i className={`fas ${isAdding ? 'fa-check' : 'fa-shopping-cart'}`}></i>
                     </button>
                 </div>
             </div>
