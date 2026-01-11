@@ -19,11 +19,11 @@ export default function Header() {
                 <div className="text-3xl font-bold text-blue-600">ShopHub</div>
  
                 <nav className="hidden lg:flex gap-8">
-                    <a href="#" className="text-gray-700 hover:text-blue-600 font-medium">Home</a>
-                    <a href="#" className="text-gray-700 hover:text-blue-600 font-medium">Shop</a>
+                    <a href="/" className="text-gray-700 hover:text-blue-600 font-medium">Home</a>
+                    <a href="/shop" className="text-gray-700 hover:text-blue-600 font-medium">Shop</a>
                     <a href="#" className="text-gray-700 hover:text-blue-600 font-medium">Categories</a>
-                    <a href="#" className="text-gray-700 hover:text-blue-600 font-medium">Deals</a>
-                    <a href="#" className="text-gray-700 hover:text-blue-600 font-medium">Contact</a>
+                    <a href="/cart" className="text-gray-700 hover:text-blue-600 font-medium">Cart</a>
+                    <a href="/contact" className="text-gray-700 hover:text-blue-600 font-medium">Contact</a>
                 </nav> 
                 
                 <div className="flex items-center gap-4">
