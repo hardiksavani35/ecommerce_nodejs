@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client'; 
+import { RouterProvider } from 'react-router-dom';
 import App from './App';
+import router from './router/index';
 import reportWebVitals from './reportWebVitals';
 import {CartProvider} from './store/CartContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <CartProvider>
-    <App />
+    <RouterProvider router={router} />
   </CartProvider>
 );
 
