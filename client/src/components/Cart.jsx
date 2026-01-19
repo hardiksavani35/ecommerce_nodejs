@@ -1,4 +1,9 @@
+import { useContext } from "react"
+import { CartContext } from "../store/CartContext"
+import CartItem from "./CartItem";
+
 export default function Cart() {
+    const { cart } = useContext(CartContext);
     return (
         <section className="py-12">
             <div className="container mx-auto px-4">
@@ -7,68 +12,7 @@ export default function Cart() {
                 <div className="grid lg:grid-cols-3 gap-8"> 
                     <div className="lg:col-span-2">
                         <div className="bg-white rounded-xl shadow-md overflow-hidden"> 
-                            <div className="p-6 border-b flex flex-col sm:flex-row gap-4">
-                                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400" alt="Product" className="w-full sm:w-32 h-32 object-cover rounded-lg" />
-                                <div className="flex-1">
-                                    <div className="flex justify-between">
-                                        <h3 className="font-semibold text-gray-800 text-lg">Wireless Headphones</h3>
-                                        <button className="text-red-500 hover:text-red-700">
-                                            <i className="fas fa-trash"></i>
-                                        </button>
-                                    </div>
-                                    <p className="text-gray-600 text-sm mt-1">Color: Black | Size: One Size</p>
-                                    <div className="flex justify-between items-center mt-4">
-                                        <div className="flex items-center border rounded-lg">
-                                            <button className="px-3 py-1 hover:bg-gray-100">-</button>
-                                            <span className="px-4 py-1 border-x">1</span>
-                                            <button className="px-3 py-1 hover:bg-gray-100">+</button>
-                                        </div>
-                                        <span className="text-2xl font-bold text-gray-800">$89.99</span>
-                                    </div>
-                                </div>
-                            </div>
- 
-                            <div className="p-6 border-b flex flex-col sm:flex-row gap-4">
-                                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400" alt="Product" className="w-full sm:w-32 h-32 object-cover rounded-lg" />
-                                <div className="flex-1">
-                                    <div className="flex justify-between">
-                                        <h3 className="font-semibold text-gray-800 text-lg">Smart Watch</h3>
-                                        <button className="text-red-500 hover:text-red-700">
-                                            <i className="fas fa-trash"></i>
-                                        </button>
-                                    </div>
-                                    <p className="text-gray-600 text-sm mt-1">Color: Silver | Band: Sport</p>
-                                    <div className="flex justify-between items-center mt-4">
-                                        <div className="flex items-center border rounded-lg">
-                                            <button className="px-3 py-1 hover:bg-gray-100">-</button>
-                                            <span className="px-4 py-1 border-x">2</span>
-                                            <button className="px-3 py-1 hover:bg-gray-100">+</button>
-                                        </div>
-                                        <span className="text-2xl font-bold text-gray-800">$299.98</span>
-                                    </div>
-                                </div>
-                            </div>
- 
-                            <div className="p-6 flex flex-col sm:flex-row gap-4">
-                                <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400" alt="Product" className="w-full sm:w-32 h-32 object-cover rounded-lg" />
-                                <div className="flex-1">
-                                    <div className="flex justify-between">
-                                        <h3 className="font-semibold text-gray-800 text-lg">Designer Sunglasses</h3>
-                                        <button className="text-red-500 hover:text-red-700">
-                                            <i className="fas fa-trash"></i>
-                                        </button>
-                                    </div>
-                                    <p className="text-gray-600 text-sm mt-1">Frame: Aviator | Lens: Polarized</p>
-                                    <div className="flex justify-between items-center mt-4">
-                                        <div className="flex items-center border rounded-lg">
-                                            <button className="px-3 py-1 hover:bg-gray-100">-</button>
-                                            <span className="px-4 py-1 border-x">1</span>
-                                            <button className="px-3 py-1 hover:bg-gray-100">+</button>
-                                        </div>
-                                        <span className="text-2xl font-bold text-gray-800">$129.99</span>
-                                    </div>
-                                </div>
-                            </div>
+                            { cart.length === 0 ? (<p className="p-4 text-gray-500">Your cart is empty.</p>) : (cart.map(item => (<CartItem key={item.id} item={item} />)) )}
                         </div>
 
                         <div className="mt-6 flex gap-4">

@@ -1,5 +1,6 @@
 import { useContext } from "react"
 import { CartContext } from "../store/CartContext"
+import { Link } from "react-router-dom";
 
 export default function Header() {
     const { cart } = useContext(CartContext);
@@ -19,11 +20,11 @@ export default function Header() {
                 <div className="text-3xl font-bold text-blue-600">ShopHub</div>
  
                 <nav className="hidden lg:flex gap-8">
-                    <a href="/" className="text-gray-700 hover:text-blue-600 font-medium">Home</a>
-                    <a href="/shop" className="text-gray-700 hover:text-blue-600 font-medium">Shop</a>
-                    <a href="#" className="text-gray-700 hover:text-blue-600 font-medium">Categories</a>
-                    <a href="/cart" className="text-gray-700 hover:text-blue-600 font-medium">Cart</a>
-                    <a href="/contact" className="text-gray-700 hover:text-blue-600 font-medium">Contact</a>
+                    <Link to="/" className="text-gray-700 hover:text-blue-600 font-medium">Home</Link>
+                    <Link to="/shop" className="text-gray-700 hover:text-blue-600 font-medium">Shop</Link>
+                    <Link to="/shop" className="text-gray-700 hover:text-blue-600 font-medium">Categories</Link>
+                    <Link to="/cart" className="text-gray-700 hover:text-blue-600 font-medium">Cart</Link>
+                    <Link to="/contact" className="text-gray-700 hover:text-blue-600 font-medium">Contact</Link>
                 </nav> 
                 
                 <div className="flex items-center gap-4">
