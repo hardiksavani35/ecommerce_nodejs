@@ -17,6 +17,12 @@ export function CartProvider({children}) {
         });
     };
 
+    const deleteProduct = (productId) => {
+        setCart((prevCart) => {
+            return prevCart.filter((item) => item.id !== productId);
+        });
+    };
+
     const increaseQuantity = (productId) => {
         setCart(prevCart => {
             return prevCart.map(item =>
@@ -37,8 +43,12 @@ export function CartProvider({children}) {
         });
     };
 
+    const clearCart = () =>  {
+        setCart([]);
+    }
+
     return (
-        <CartContext.Provider value={{ cart, addToCart, increaseQuantity, decreaseQuantity }}>
+        <CartContext.Provider value={{ cart, addToCart, increaseQuantity, decreaseQuantity, deleteProduct, clearCart }}>
             {children}
         </CartContext.Provider>
     );

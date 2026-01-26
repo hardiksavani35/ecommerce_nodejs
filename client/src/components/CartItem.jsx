@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { CartContext } from "../store/CartContext";
 
 export default function CartItem({item}) {  
-    const { increaseQuantity, decreaseQuantity } = useContext(CartContext);
+    const { increaseQuantity, decreaseQuantity, deleteProduct } = useContext(CartContext);
     const itemTotal = (item.price * item.quantity).toFixed(2);
     return(
         <div className="p-6 border-b flex flex-col sm:flex-row gap-4">
@@ -10,7 +10,7 @@ export default function CartItem({item}) {
             <div className="flex-1">
                 <div className="flex justify-between">
                     <h3 className="font-semibold text-gray-800 text-lg">{item.name}</h3>
-                    <button className="text-red-500 hover:text-red-700">
+                    <button className="text-red-500 hover:text-red-700" onClick={() => deleteProduct(item.id)}>
                         <i className="fas fa-trash"></i>
                     </button>
                 </div>

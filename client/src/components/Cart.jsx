@@ -1,9 +1,16 @@
 import { useContext } from "react"
 import { CartContext } from "../store/CartContext"
 import CartItem from "./CartItem";
+import { Link } from "react-router-dom";
 
 export default function Cart() {
-    const { cart } = useContext(CartContext);
+    const { cart, clearCart } = useContext(CartContext);
+    const itemsCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const subtotal = cart.reduce(
+        (sum, item) => sum + item.price * item.quantity, 0
+    );
+    let tax = 0, shipping = 0;
+    const total = subtotal + shipping + tax;
     return (
         <section className="py-12">
             <div className="container mx-auto px-4">
@@ -16,10 +23,10 @@ export default function Cart() {
                         </div>
 
                         <div className="mt-6 flex gap-4">
-                            <a href="shop.html" className="flex-1 bg-white border-2 border-blue-600 text-blue-600 py-3 rounded-lg text-center font-semibold hover:bg-blue-50">
+                            <Link to="/shop" className="flex-1 bg-white border-2 border-blue-600 text-blue-600 py-3 rounded-lg text-center font-semibold hover:bg-blue-50">
                                 <i className="fas fa-arrow-left mr-2"></i>Continue Shopping
-                            </a>
-                            <button className="bg-red-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-600">
+                            </Link>
+                            <button className="bg-red-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-600" onClick={clearCart}>
                                 <i className="fas fa-trash mr-2"></i>Clear Cart
                             </button>
                         </div>
@@ -31,20 +38,20 @@ export default function Cart() {
                             
                             <div className="space-y-4 mb-6">
                                 <div className="flex justify-between text-gray-600">
-                                    <span>Subtotal (4 items)</span>
-                                    <span className="font-semibold">$519.96</span>
+                                    <span>Subtotal ({itemsCount} items)</span>
+                                    <span className="font-semibold">${subtotal.toFixed(2)}</span>
                                 </div>
                                 <div className="flex justify-between text-gray-600">
                                     <span>Shipping</span>
-                                    <span className="font-semibold text-green-600">Free</span>
+                                    <span className="font-semibold text-green-600">$0.00</span>
                                 </div>
                                 <div className="flex justify-between text-gray-600">
                                     <span>Tax</span>
-                                    <span className="font-semibold">$41.60</span>
+                                    <span className="font-semibold">$0.00</span>
                                 </div>
                                 <div className="border-t pt-4 flex justify-between text-xl font-bold text-gray-800">
                                     <span>Total</span>
-                                    <span>$561.56</span>
+                                    <span>${total.toFixed(2)}</span>
                                 </div>
                             </div>
 
